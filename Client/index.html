@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Digital Notice Board – Authentication</title>
+  <style>
+
+    /* ─── RESET ─────────────────────────────────────────────
+       Remove default spacing from all elements              */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Inter", sans-serif;
+    }
+
+    /* ─── PAGE BACKGROUND ───────────────────────────────────
+       Dark gradient fills the full screen
+       Flexbox centers everything vertically & horizontally  */
+    body {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    /* ─── MAIN WRAPPER ──────────────────────────────────────
+       White box that holds the whole dashboard              */
+    .container {
+      background: white;
+      width: 100%;
+      max-width: 1100px;
+      padding: 50px 40px;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+
+    /* ─── PAGE TITLE ────────────────────────────────────────  */
+    h1 {
+      color: #1e293b;
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #64748b;
+      font-size: 15px;
+      margin-bottom: 40px;
+    }
+
+    /* ─── CARDS ROW ─────────────────────────────────────────
+       All 4 role cards sit side by side in one row
+       flex-wrap allows them to wrap on small screens        */
+    .cards-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    /* ─── SINGLE ROLE CARD ──────────────────────────────────
+       Each card takes equal space with flex: 1
+       min-width stops cards from getting too narrow         */
+    .card {
+      flex: 1;
+      min-width: 200px;
+      max-width: 240px;
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 30px 20px;
+      border-top: 5px solid;       /* Color set per role below */
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    /* Card lifts up slightly when hovered */
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+    }
+
+    /* ─── ROLE COLORS (top border) ──────────────────────────  */
+    .card.admin   { border-top-color: #ef4444; }  /* Red    */
+    .card.teacher { border-top-color: #eab308; }  /* Yellow */
+    .card.student { border-top-color: #3b82f6; }  /* Blue   */
+    .card.parent  { border-top-color: #10b981; }  /* Green  */
+
+    /* ─── EMOJI ICON ────────────────────────────────────────  */
+    .icon {
+      font-size: 42px;
+      margin-bottom: 12px;
+    }
+
+    /* ─── ROLE NAME ─────────────────────────────────────────  */
+    .card h3 {
+      color: #1e293b;
+      font-size: 17px;
+      margin-bottom: 20px;
+    }
+
+    /* ─── BUTTON GROUP ──────────────────────────────────────
+       Stacks the two buttons (Sign Up / Sign In) vertically */
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* ─── SHARED BUTTON STYLES ──────────────────────────────
+       Base styles applied to ALL buttons                    */
+    .btn {
+      padding: 10px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: background 0.2s, color 0.2s;
+      display: block;             /* Makes link fill full width */
+    }
+
+    /* ─── SIGN UP BUTTON ────────────────────────────────────
+       Same light grey style for all roles                   */
+    .btn-signup {
+      background: #f0f4f8;
+      color: #1e293b;
+      border: 2px solid #e2e8f0;
+    }
+
+    .btn-signup:hover {
+      background: #e2e8f0;
+    }
+
+    /* ─── SIGN IN BUTTONS ───────────────────────────────────
+       Each role gets its own colour                         */
+    .admin   .btn-login { background: #ef4444; color: white; }
+    .admin   .btn-login:hover { background: #dc2626; }
+
+    .teacher .btn-login { background: #eab308; color: #000; }
+    .teacher .btn-login:hover { background: #ca8a04; }
+
+    .student .btn-login { background: #3b82f6; color: white; }
+    .student .btn-login:hover { background: #2563eb; }
+
+    .parent  .btn-login { background: #10b981; color: white; }
+    .parent  .btn-login:hover { background: #059669; }
+
+    /* ─── FOOTER ────────────────────────────────────────────  */
+    .footer {
+      color: #94a3b8;
+      font-size: 13px;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 20px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Page Title -->
+    <h1>🎓 Digital Notice Board</h1>
+    <p class="subtitle">Centralized Notification System for Educational Institutions</p>
+
+    <!-- ── 4 Role Cards in a Row ── -->
+    <div class="cards-row">
+
+      <!-- Admin Card -->
+      <div class="card admin">
+        <div class="icon">🛡️</div>
+        <h3>Admin</h3>
+        <div class="btn-group">
+          <a href="./signup/admin-signup.html" class="btn btn-signup">Create Account</a>
+          <a href="./login/admin-login.html"   class="btn btn-login">Sign In</a>
+        </div>
+      </div>
+
+      <!-- Teacher Card -->
+      <div class="card teacher">
+        <div class="icon">👨‍🏫</div>
+        <h3>Teacher</h3>
+        <div class="btn-group">
+          <a href="./signup/teacher-signup.html" class="btn btn-signup">Create Account</a>
+          <a href="./login/teacher-login.html"   class="btn btn-login">Sign In</a>
+        </div>
+      </div>
+
+      <!-- Student Card -->
+      <div class="card student">
+        <div class="icon">🎓</div>
+        <h3>Student</h3>
+        <div class="btn-group">
+          <a href="./signup/student-signup.html" class="btn btn-signup">Create Account</a>
+          <a href="./login/student-login.html"   class="btn btn-login">Sign In</a>
+        </div>
+      </div>
+
+      <!-- Parent Card -->
+      <div class="card parent">
+        <div class="icon">👨‍👩‍👧</div>
+        <h3>Parent / Guardian</h3>
+        <div class="btn-group">
+          <a href="./signup/parent-signup.html" class="btn btn-signup">Create Account</a>
+          <a href="./login/parent-login.html"   class="btn btn-login">Sign In</a>
+        </div>
+      </div>
+
+    </div>
+    <!-- End Cards Row -->
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>© 2026 Digital Notice Board. All rights reserved.</p>
+    </div>
+
+  </div>
+
+</body>
+</html>

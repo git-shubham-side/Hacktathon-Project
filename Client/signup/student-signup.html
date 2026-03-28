@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Signup – Digital Notice Board</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link href="./student-signup.css" rel="stylesheet"></link>
+</head>
+<body>
+
+  <div class="card">
+    <form action="/student/signup" method="POST" onsubmit="return trimForm()">
+
+      <!-- Role Badge -->
+      <div class="badge"><span>🎓 Student</span></div>
+      <h1>Student Signup</h1>
+      <p class="subtitle">Digital Notice Board System</p>
+
+      <!-- ── SECTION 1: Personal Info ── -->
+      <p class="section-title">Personal Information</p>
+
+      <div class="two-col">
+        <div>
+          <label>First Name</label>
+          <input type="text" name="firstName" placeholder="e.g. Priya" required />
+        </div>
+        <div>
+          <label>Last Name</label>
+          <input type="text" name="lastName" placeholder="e.g. Desai" required />
+        </div>
+      </div>
+
+      <label>Email Address</label>
+      <input type="email" name="email" placeholder="student@email.com" required />
+
+      <label>Phone Number</label>
+      <input type="number" name="phone" placeholder="+91 0000-000-000" />
+
+      <label>Gender</label>
+      <div class="gender-group">
+        <label class="radio-item"><input type="radio" name="gender" value="male" /> Male</label>
+        <label class="radio-item"><input type="radio" name="gender" value="female" /> Female</label>
+        <label class="radio-item"><input type="radio" name="gender" value="other" /> Other</label>
+      </div>
+
+      <!-- ── SECTION 2: Academic Info ── -->
+      <hr class="divider" />
+      <p class="section-title">Academic Information</p>
+
+      <label>Institute Name</label>
+      <input type="text" name="instituteName" placeholder="MGM College of CS & IT" />
+
+      <label>Institute ID</label>
+      <input type="text" name="instituteId" placeholder="MGM-88291" />
+
+      <label>Student Roll Number</label>
+      <input type="text" name="rollNumber" placeholder="e.g. CS-2023-047" required />
+
+      <!-- ── SECTION 3: Security ── -->
+      <hr class="divider" />
+      <p class="section-title">Security</p>
+
+      <label>Password</label>
+      <input type="password" name="password" placeholder="••••••••" required />
+
+      <label>Confirm Password</label>
+      <input type="password" name="confirmPassword" placeholder="••••••••" required />
+
+      <button type="submit">Create Student Account</button>
+    </form>
+
+    <p class="login-link">Already have an account? <a href="/student/login">Sign in</a></p>
+  </div>
+ <script src="./script.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+# Git ignore file
+# This file specifies which files/folders should be ignored by Git
+
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Editor files
+*.sublime-workspace
+*.sublime-project
+
+# Node modules (if using any JS build tools)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.env
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Build outputs
+dist/
+build/
+.cache/
+
+# Temporary files
+*.tmp
+*.bak
+*.log
+
+# IDE
+.vscode/settings.json
+.idea/
+
+# OS specific
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db

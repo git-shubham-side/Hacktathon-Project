@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teacher Signup – Digital Notice Board</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link href="./teacher-signup.css" rel="stylesheet"></link>
+</head>
+<body>
+  <div class="inner">
+    <form action="/teacher/signup" method="POST" onsubmit="return trimForm()">
+      <div class="badge"><span>👨‍🏫 Teacher</span></div>
+      <h1>Teacher Signup</h1>
+      <p class="subtitle">Digital Notice Board System</p>
+
+      <p class="section-title">Personal Information</p>
+      <div class="two-col">
+        <div>
+          <label>First Name</label>
+          <input type="text" name="firstName" placeholder="e.g. Shubham" required />
+        </div>
+        <div>
+          <label>Last Name</label>
+          <input type="text" name="lastName" placeholder="e.g. Rathod" required />
+        </div>
+      </div>
+
+      <label>Email Address</label>
+      <input type="email" name="email" placeholder="name@email.com" required />
+
+     
+      
+
+      <hr class="divider" />
+      <p class="section-title">Institute Information</p>
+
+      <label>Institute Name</label>
+      <input type="text" name="instituteName" placeholder="MGM College of CS & IT" />
+
+      <label>Institute ID</label>
+      <input type="text" name="instituteId" placeholder="MGM-88291" />
+
+      <hr class="divider" />
+      <p class="section-title">Security</p>
+
+      <label>Password</label>
+      <input type="password" name="password" placeholder="••••••••" required />
+
+      <label>Confirm Password</label>
+      <input type="password" name="confirmPassword" placeholder="••••••••" required />
+
+      <button type="submit">Create Teacher Account</button>
+    </form>
+    <p class="login-link">Already have an account? <a href="/teacher/login">Sign in</a></p>
+  </div>
+   <script src="./script.js"></script>
+</body>
+</html>

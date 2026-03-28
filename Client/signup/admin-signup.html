@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Signup – Digital Notice Board</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
+    <link href="./admin-signup.css" rel="stylesheet" />
+</head>
+
+<body>
+    <form action="/admin/signup" method="POST" onsubmit="return trimForm()">
+        <div class="container">
+            <div class="badge">
+                <span>🛡️ Admin</span>
+            </div>
+            <div>
+                <h1>Create Admin Account</h1>
+            </div>
+            <p class="subtitle">Digital Notice Board System</p>
+            <p class="section-title">Personal Information</p>
+            <div class="two-col">
+                <div>
+                    <label>First Name</label>
+                    <input type="text" name="firstName" placeholder="e.g. Rahul" required />
+                </div>
+                <div>
+                    <label>Last Name</label>
+                    <input type="text" name="lastName" placeholder="e.g. Sharma" required />
+                </div>
+            </div>
+
+            <label>Email Address</label>
+            <input type="email" name="email" placeholder="admin@institute.com" required />
+
+            <label>Phone Number</label>
+            <input type="number" name="number" placeholder="+91 0000-000-000" required />
+
+            <div>
+                <label>Gender</label>
+                <div class="radio-btn-section">
+                    <label class="radio-item"><input type="radio" name="gender" value="male" />Male</label>
+                    <label class="radio-item"><input type="radio" name="gender" value="female" />Female</label>
+                    <label class="radio-item"><input type="radio" name="gender" value="other" />Other</label>
+                </div>
+            </div>
+            <hr class="divider" />
+
+            <label>Institute Name</label>
+            <input type="text" name="instituteName" placeholder="MGM College of CS & IT" />
+
+            <label>Institute ID</label>
+            <input type="text" name="instituteId" placeholder="MGM-88291" />
+
+            <label>Institute Address</label>
+            <input type="text" name="instituteAddress" placeholder="Namaskar Chock, Nanded" />
+
+            <hr class="divider" />
+            <label class="section-title">SECURITY</label>
+
+            <label>Password</label>
+            <input type="password" placeholder="••••••••" name="password" required />
+
+            <label>Confirm Password</label>
+            <input type="password" placeholder="••••••••" name="confirmPassword" required />
+
+            <button>Create Admin Account</button>
+            <p class="login-link">Already have an account? <a href="/admin/login">Sign in</a></p>
+        </div>
+    </form>
+    <script src="./script.js"></script>
+</body>
+
+</html>
