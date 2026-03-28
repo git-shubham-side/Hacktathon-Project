@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Parent Signup – Digital Notice Board</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link href="../css/parent-signup.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="inner">
+      <form action="/parent/signup" method="POST" onsubmit="return trimForm();">
+        <div class="badge"><span>👨‍👩‍👧 Parent / Guardian</span></div>
+        <h1>Parent Signup</h1>
+        <p class="subtitle">Digital Notice Board System</p>
+
+        <p class="section-title">Personal Information</p>
+        <div class="two-col">
+          <div>
+            <label>First Name</label>
+            <input
+              type="text"
+              name="firstName"
+              placeholder="e.g. Suresh"
+              required
+            />
+          </div>
+          <div>
+            <label>Last Name</label>
+            <input
+              type="text"
+              name="lastName"
+              placeholder="e.g. Patil"
+              required
+            />
+          </div>
+        </div>
+
+        <label>Relation to Student</label>
+        <select name="relation">
+          <option value="" disabled selected>Select relation</option>
+          <option value="father">Father</option>
+          <option value="mother">Mother</option>
+          <option value="guardian">Legal Guardian</option>
+          <option value="sibling">Sibling</option>
+          <option value="other">Other</option>
+        </select>
+
+        <label>Email Address</label>
+        <input
+          type="email"
+          name="email"
+          placeholder="parent@email.com"
+          required
+        />
+
+        <label>Phone Number</label>
+        <input
+          type="number"
+          name="phone"
+          placeholder="+91 0000-000-000"
+          required
+        />
+
+        <label>Gender</label>
+        <div class="gender-group">
+          <label class="radio-item"
+            ><input type="radio" name="gender" value="male" /> Male</label
+          >
+          <label class="radio-item"
+            ><input type="radio" name="gender" value="female" /> Female</label
+          >
+          <label class="radio-item"
+            ><input type="radio" name="gender" value="other" /> Other</label
+          >
+        </div>
+
+        <hr class="divider" />
+        <p class="section-title">Student Information</p>
+
+        <div class="info-note">
+          ℹ️ Enter your child's details to link your account and receive their
+          notices & updates.
+        </div>
+
+        <label>Student's Full Name</label>
+        <input
+          type="text"
+          name="studentName"
+          placeholder="e.g. Anjali Patil"
+          required
+        />
+
+        <label>Student Roll Number</label>
+        <input
+          type="text"
+          name="studentRollNumber"
+          placeholder="e.g. CS-2023-047"
+          required
+        />
+
+        <label>Institute Name</label>
+        <input
+          type="text"
+          name="instituteName"
+          placeholder="MGM College of CS & IT"
+        />
+
+        <label>Institute ID</label>
+        <input type="text" name="instituteId" placeholder="MGM-88291" />
+
+        <div class="two-col">
+          <div>
+            <label>Department</label>
+            <select name="department">
+              <option value="" disabled selected>Select</option>
+              <option value="cs">Computer Science</option>
+              <option value="it">Information Tech</option>
+              <option value="mech">Mechanical</option>
+              <option value="civil">Civil</option>
+              <option value="elec">Electronics</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div>
+            <label>Year</label>
+            <select name="year">
+              <option value="" disabled selected>Select</option>
+              <option value="1">1st Year</option>
+              <option value="2">2nd Year</option>
+              <option value="3">3rd Year</option>
+              <option value="4">4th Year</option>
+            </select>
+          </div>
+        </div>
+
+        <hr class="divider" />
+        <p class="section-title">Security</p>
+
+        <label>Password</label>
+        <input
+          type="password"
+          name="password"
+          placeholder="••••••••"
+          required
+        />
+
+        <label>Confirm Password</label>
+        <input
+          type="password"
+          name="confirmPassword"
+          placeholder="••••••••"
+          required
+        />
+
+        <button type="submit">Create Parent Account</button>
+      </form>
+      <p class="login-link">
+        Already have an account? <a href="/parent/login">Sign in</a>
+      </p>
+    </div>
+    <script src="./script.js"></script>
+  </body>
+</html>
