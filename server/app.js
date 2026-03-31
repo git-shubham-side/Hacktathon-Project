@@ -51,10 +51,44 @@ app.get("/health", (req, res) => {
 
 // ─── Routes ──────────────────────────────────────────────────────────────────
 // app.use("/api/v1", routes);
+// Signup Index Page
 app.get("/", (req, res) => {
-  res.render("Login");
+  res.render("main");
 });
 
+//Signup Routes
+app.get("/signup", (req, res) => {
+  res.render("index");
+});
+app.get("/signup/admin", (req, res) => {
+  res.render("./Signup/admin-signup");
+});
+app.get("/signup/parent", (req, res) => {
+  res.render("./Signup/parent-signup");
+});
+app.get("/signup/student", (req, res) => {
+  res.render("./Signup/student-signup");
+});
+app.get("/signup/teacher", (req, res) => {
+  res.render("./Signup/teacher-signup");
+});
+
+//Login Routes
+app.get("/login", (req, res) => {
+  res.render("index");
+});
+app.get("/login/admin", (req, res) => {
+  res.render("./Login/admin-login");
+});
+app.get("/login/parent", (req, res) => {
+  res.render("./Login/parent-login");
+});
+app.get("/login/student", (req, res) => {
+  res.render("./Login/student-login");
+});
+app.get("/login/teacher", (req, res) => {
+  res.render("./Login/teacher-login");
+});
 // ─── Error Handling ──────────────────────────────────────────────────────────
 // app.use(notFound);
 // app.use(errorHandler);

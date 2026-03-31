@@ -9,7 +9,7 @@
        Dark gradient fills the full screen
        Flexbox centers everything vertically & horizontally  */
 body {
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  /* background: #468dea; */
   min-height: 100vh;
   display: flex;
   justify-content: center;

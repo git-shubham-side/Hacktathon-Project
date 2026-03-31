@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NoticeBoard — School & College Notice System</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Nunito", sans-serif;
+        background: #fff;
+        color: #1a1a2e;
+        overflow-x: hidden;
+      }
+
+      /* NAV */
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 60px;
+        border-bottom: 1px solid #eee;
+        position: sticky;
+        top: 0;
+        background: white;
+        z-index: 50;
+      }
+      .logo {
+        font-size: 1.3rem;
+        font-weight: 900;
+        color: #1a73e8;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .nav-links {
+        display: flex;
+        gap: 32px;
+        list-style: none;
+        font-size: 0.92rem;
+        font-weight: 600;
+      }
+      .nav-links a {
+        text-decoration: none;
+        color: #555;
+        transition: color 0.15s;
+      }
+      .nav-links a:hover {
+        color: #1a73e8;
+      }
+      .nav-btns {
+        display: flex;
+        gap: 10px;
+      }
+      .btn-outline {
+        padding: 9px 22px;
+        border: 2px solid #1a73e8;
+        color: #1a73e8;
+        border-radius: 8px;
+        font-family: "Nunito", sans-serif;
+        font-size: 0.88rem;
+        font-weight: 700;
+        cursor: pointer;
+        background: white;
+        text-decoration: none;
+        transition: all 0.15s;
+      }
+      .btn-outline:hover {
+        background: #1a73e8;
+        color: white;
+      }
+      .btn-solid {
+        padding: 9px 22px;
+        background: #1a73e8;
+        color: white;
+        border: 2px solid #1a73e8;
+        border-radius: 8px;
+        font-family: "Nunito", sans-serif;
+        font-size: 0.88rem;
+        font-weight: 700;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background 0.15s;
+      }
+      .btn-solid:hover {
+        background: #1558b0;
+        border-color: #1558b0;
+      }
+
+      /* HERO */
+      .hero {
+        text-align: center;
+        padding: 90px 20px 70px;
+        background: linear-gradient(180deg, #eef4ff 0%, #fff 100%);
+        animation: fadeUp 0.6s ease both;
+      }
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .hero-tag {
+        display: inline-block;
+        background: #e8f0fe;
+        color: #1a73e8;
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        padding: 5px 16px;
+        border-radius: 20px;
+        margin-bottom: 22px;
+        text-transform: uppercase;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+        font-weight: 900;
+        line-height: 1.2;
+        margin-bottom: 18px;
+        max-width: 650px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .hero h1 span {
+        color: #1a73e8;
+      }
+
+      .hero p {
+        font-size: 1.05rem;
+        color: #666;
+        max-width: 520px;
+        margin: 0 auto 36px;
+        line-height: 1.7;
+      }
+
+      .hero-btns {
+        display: flex;
+        gap: 14px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .hero-btns .btn-solid {
+        font-size: 1rem;
+        padding: 13px 32px;
+        border-radius: 10px;
+      }
+      .hero-btns .btn-outline {
+        font-size: 1rem;
+        padding: 13px 32px;
+        border-radius: 10px;
+      }
+
+      /* STATS */
+      .stats {
+        display: flex;
+        justify-content: center;
+        gap: 48px;
+        padding: 40px 20px;
+        border-top: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+        flex-wrap: wrap;
+        animation: fadeUp 0.6s ease 0.1s both;
+      }
+      .stat-item {
+        text-align: center;
+      }
+      .stat-num {
+        font-size: 2rem;
+        font-weight: 900;
+        color: #1a73e8;
+      }
+      .stat-label {
+        font-size: 0.82rem;
+        color: #888;
+        font-weight: 600;
+        margin-top: 4px;
+      }
+
+      /* FEATURES */
+      .section {
+        padding: 70px 60px;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      .section-tag {
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #1a73e8;
+        margin-bottom: 10px;
+      }
+      .section h2 {
+        font-size: 2rem;
+        font-weight: 900;
+        margin-bottom: 10px;
+      }
+      .section > p {
+        color: #666;
+        font-size: 0.95rem;
+        margin-bottom: 44px;
+        max-width: 500px;
+        line-height: 1.7;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+      }
+      .feature-card {
+        background: #f8faff;
+        border: 1px solid #e8eef8;
+        border-radius: 12px;
+        padding: 26px;
+        transition:
+          box-shadow 0.2s,
+          transform 0.2s;
+      }
+      .feature-card:hover {
+        box-shadow: 0 6px 24px rgba(26, 115, 232, 0.1);
+        transform: translateY(-3px);
+      }
+      .feature-icon {
+        font-size: 1.8rem;
+        margin-bottom: 14px;
+      }
+      .feature-card h3 {
+        font-size: 1rem;
+        font-weight: 800;
+        margin-bottom: 8px;
+      }
+      .feature-card p {
+        font-size: 0.85rem;
+        color: #666;
+        line-height: 1.6;
+      }
+
+      /* HOW IT WORKS */
+      .how-section {
+        background: #f8faff;
+        padding: 70px 60px;
+      }
+      .how-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+        margin-top: 44px;
+      }
+      .step {
+        text-align: center;
+        position: relative;
+      }
+      .step:not(:last-child)::after {
+        content: "→";
+        position: absolute;
+        right: -14px;
+        top: 22px;
+        color: #ccc;
+        font-size: 1.2rem;
+      }
+      .step-num {
+        width: 52px;
+        height: 52px;
+        background: #1a73e8;
+        color: white;
+        border-radius: 50%;
+        font-size: 1.2rem;
+        font-weight: 900;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 14px;
+      }
+      .step h4 {
+        font-size: 0.95rem;
+        font-weight: 800;
+        margin-bottom: 6px;
+      }
+      .step p {
+        font-size: 0.8rem;
+        color: #666;
+        line-height: 1.5;
+      }
+
+      /* NOTICE PREVIEW */
+      .preview-section {
+        padding: 70px 60px;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      .notices-preview {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        margin-top: 36px;
+      }
+      .preview-card {
+        background: white;
+        border: 1px solid #eee;
+        border-radius: 10px;
+        padding: 18px 22px;
+        border-left: 5px solid;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+      }
+      .preview-card.exam {
+        border-left-color: #e53935;
+      }
+      .preview-card.event {
+        border-left-color: #fb8c00;
+      }
+      .preview-card.holiday {
+        border-left-color: #43a047;
+      }
+      .pc-info {
+        flex: 1;
+      }
+      .pc-title {
+        font-size: 0.95rem;
+        font-weight: 800;
+        margin-bottom: 4px;
+      }
+      .pc-meta {
+        font-size: 0.78rem;
+        color: #888;
+      }
+      .pc-badge {
+        font-size: 0.7rem;
+        font-weight: 700;
+        padding: 4px 12px;
+        border-radius: 20px;
+      }
+      .pc-badge.exam {
+        background: #fde8e8;
+        color: #e53935;
+      }
+      .pc-badge.event {
+        background: #fff3e0;
+        color: #fb8c00;
+      }
+      .pc-badge.holiday {
+        background: #e8f5e9;
+        color: #43a047;
+      }
+
+      /* CTA */
+      .cta-section {
+        background: #1a73e8;
+        color: white;
+        text-align: center;
+        padding: 80px 20px;
+      }
+      .cta-section h2 {
+        font-size: 2.2rem;
+        font-weight: 900;
+        margin-bottom: 14px;
+      }
+      .cta-section p {
+        font-size: 1rem;
+        opacity: 0.85;
+        margin-bottom: 34px;
+        max-width: 440px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.6;
+      }
+      .btn-white {
+        padding: 13px 36px;
+        background: white;
+        color: #1a73e8;
+        border: none;
+        border-radius: 10px;
+        font-family: "Nunito", sans-serif;
+        font-size: 1rem;
+        font-weight: 800;
+        cursor: pointer;
+        transition: transform 0.15s;
+      }
+      .btn-white:hover {
+        transform: translateY(-2px);
+      }
+
+      /* FOOTER */
+      footer {
+        background: #1a1a2e;
+        color: #aaa;
+        text-align: center;
+        padding: 28px 20px;
+        font-size: 0.82rem;
+      }
+      footer span {
+        color: #1a73e8;
+        font-weight: 700;
+      }
+
+      @media (max-width: 768px) {
+        nav {
+          padding: 14px 20px;
+        }
+        .nav-links,
+        .nav-btns {
+          display: none;
+        }
+        .hero h1 {
+          font-size: 2rem;
+        }
+        .section,
+        .how-section,
+        .preview-section {
+          padding: 50px 20px;
+        }
+        .features-grid {
+          grid-template-columns: 1fr;
+        }
+        .steps {
+          grid-template-columns: 1fr 1fr;
+        }
+        .step::after {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav>
+      <div class="logo">Digital Notice Board</div>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#hero-section">How it Works</a></li>
+        <li><a href="#preview">Preview</a></li>
+      </ul>
+      <div class="nav-btns">
+        <a class="btn-outline" href="/signup">Signup</a>
+        <a class="btn-solid" href="/signup">Get Started</a>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-tag">🎓 For Schools & Colleges</div>
+      <h1>One Place for All Your <span>Important Notices</span></h1>
+      <p>
+        Post exam schedules, events, holidays, and fee reminders in seconds.
+        Students and parents stay informed — always.
+      </p>
+      <div class="hero-btns">
+        <a class="btn-solid" href="/signup">Get Started </a>
+        <a class="btn-outline" href="#">See How It Works</a>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="section" id="features">
+      <div class="section-tag">Features</div>
+      <h2>Everything your school needs 📚</h2>
+      <p>
+        Simple tools for teachers and admins to keep everyone on the same page.
+      </p>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📌</div>
+          <h3>Post Notices Instantly</h3>
+          <p>
+            Admins and teachers can post notices in seconds — no training
+            needed.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🗂️</div>
+          <h3>Organized by Category</h3>
+          <p>
+            Exam, Event, Holiday, Fee — students find what they need quickly.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔔</div>
+          <h3>Instant Notifications</h3>
+          <p>
+            Students and parents get notified the moment a new notice is posted.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔍</div>
+          <h3>Easy Search</h3>
+          <p>Find any notice by keyword, date, or category in one click.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📱</div>
+          <h3>Works on Mobile</h3>
+          <p>Students can check notices on their phone, anytime, anywhere.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3>Role-Based Access</h3>
+          <p>Only authorized staff can post. Students can only view.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <div class="how-section" id="hero-section">
+      <div class="how-inner">
+        <div class="section-tag">How It Works</div>
+        <h2>Up and running in minutes ⚡</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <h4>Register School</h4>
+            <p>Create a free account for your school or college.</p>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <h4>Add Staff</h4>
+            <p>Invite teachers and admins to post notices.</p>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <h4>Post a Notice</h4>
+            <p>Write your notice, pick a category, and publish.</p>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <h4>Students See It</h4>
+            <p>Everyone gets notified and can view it instantly.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NOTICE PREVIEW -->
+    <section class="preview-section">
+      <div class="section-tag" id="preview">Live Preview</div>
+      <h2>What notices look like 👀</h2>
+
+      <div class="notices-preview">
+        <div class="preview-card exam">
+          <div class="pc-info">
+            <div class="pc-title">Mid-Term Exam Schedule — November 2024</div>
+            <div class="pc-meta">
+              Posted by Exam Dept &nbsp;·&nbsp; 10 Nov 2024
+            </div>
+          </div>
+          <span class="pc-badge exam">Exam</span>
+        </div>
+        <div class="preview-card event">
+          <div class="pc-info">
+            <div class="pc-title">
+              Annual Sports Day — 5th December at College Ground
+            </div>
+            <div class="pc-meta">
+              Posted by Sports Committee &nbsp;·&nbsp; 9 Nov 2024
+            </div>
+          </div>
+          <span class="pc-badge event">Event</span>
+        </div>
+        <div class="preview-card holiday">
+          <div class="pc-info">
+            <div class="pc-title">Diwali Holidays — 1st to 5th November</div>
+            <div class="pc-meta">
+              Posted by Principal Office &nbsp;·&nbsp; 28 Oct 2024
+            </div>
+          </div>
+          <span class="pc-badge holiday">Holiday</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <h2>Ready to go digital? 🚀</h2>
+      <p>
+        Join hundreds of schools already using NoticeBoard to reach students
+        faster.
+      </p>
+      <button class="btn-white">Start for Free — No Credit Card</button>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      A Project Created By <b><i>Node Ninjas</i></b>
+    </footer>
+  </body>
+</html>

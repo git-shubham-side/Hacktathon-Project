@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notice Board</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: #f0f4f8;
+        color: #333;
+      }
+
+      header {
+        background: #1a73e8;
+        color: white;
+        padding: 16px 32px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      }
+
+      header h1 {
+        font-size: 1.3rem;
+        font-weight: 600;
+      }
+      header span {
+        font-size: 0.85rem;
+        opacity: 0.85;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 30px auto;
+        padding: 0 20px;
+      }
+
+      /* Top bar */
+      .top-bar {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .top-bar input {
+        flex: 1;
+        min-width: 200px;
+        padding: 10px 14px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-family: "Poppins", sans-serif;
+        font-size: 0.9rem;
+        outline: none;
+      }
+      .top-bar input:focus {
+        border-color: #1a73e8;
+      }
+
+      .top-bar select {
+        padding: 10px 14px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-family: "Poppins", sans-serif;
+        font-size: 0.88rem;
+        background: white;
+        outline: none;
+        cursor: pointer;
+      }
+
+      .btn-add {
+        padding: 10px 20px;
+        background: #1a73e8;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-family: "Poppins", sans-serif;
+        font-size: 0.88rem;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .btn-add:hover {
+        background: #1558b0;
+      }
+
+      /* Category tabs */
+      .tabs {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+      }
+      .tab {
+        padding: 7px 18px;
+        border-radius: 20px;
+        border: 1px solid #ccc;
+        background: white;
+        font-size: 0.82rem;
+        cursor: pointer;
+        font-family: "Poppins", sans-serif;
+        transition: all 0.15s;
+      }
+      .tab:hover {
+        border-color: #1a73e8;
+        color: #1a73e8;
+      }
+      .tab.active {
+        background: #1a73e8;
+        color: white;
+        border-color: #1a73e8;
+      }
+
+      /* Notice cards */
+      .notice-list {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .notice-card {
+        background: white;
+        border-radius: 10px;
+        padding: 18px 20px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+        border-left: 5px solid #ccc;
+        position: relative;
+      }
+      .notice-card.exam {
+        border-left-color: #e53935;
+      }
+      .notice-card.event {
+        border-left-color: #fb8c00;
+      }
+      .notice-card.holiday {
+        border-left-color: #43a047;
+      }
+      .notice-card.general {
+        border-left-color: #1a73e8;
+      }
+      .notice-card.fee {
+        border-left-color: #8e24aa;
+      }
+
+      .card-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 8px;
+      }
+
+      .notice-title {
+        font-size: 1rem;
+        font-weight: 600;
+        line-height: 1.4;
+      }
+
+      .badge {
+        font-size: 0.68rem;
+        font-weight: 600;
+        padding: 3px 10px;
+        border-radius: 20px;
+        white-space: nowrap;
+      }
+      .badge.exam {
+        background: #fde8e8;
+        color: #e53935;
+      }
+      .badge.event {
+        background: #fff3e0;
+        color: #fb8c00;
+      }
+      .badge.holiday {
+        background: #e8f5e9;
+        color: #43a047;
+      }
+      .badge.general {
+        background: #e8f0fe;
+        color: #1a73e8;
+      }
+      .badge.fee {
+        background: #f3e5f5;
+        color: #8e24aa;
+      }
+
+      .notice-body {
+        font-size: 0.85rem;
+        color: #555;
+        line-height: 1.6;
+        margin-bottom: 12px;
+      }
+
+      .card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.75rem;
+        color: #888;
+      }
+
+      .delete-btn {
+        background: none;
+        border: none;
+        color: #ccc;
+        cursor: pointer;
+        font-size: 1rem;
+        padding: 0 4px;
+        transition: color 0.15s;
+      }
+      .delete-btn:hover {
+        color: #e53935;
+      }
+
+      /* Modal */
+      .overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 100;
+        align-items: center;
+        justify-content: center;
+      }
+      .overlay.open {
+        display: flex;
+      }
+
+      .modal {
+        background: white;
+        border-radius: 12px;
+        padding: 28px;
+        width: 460px;
+        max-width: 95vw;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+      }
+      .modal h2 {
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+        color: #1a73e8;
+      }
+
+      .form-group {
+        margin-bottom: 14px;
+      }
+      .form-group label {
+        display: block;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #555;
+        margin-bottom: 5px;
+      }
+      .form-group input,
+      .form-group textarea,
+      .form-group select {
+        width: 100%;
+        padding: 9px 12px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-family: "Poppins", sans-serif;
+        font-size: 0.85rem;
+        outline: none;
+        transition: border-color 0.15s;
+      }
+      .form-group input:focus,
+      .form-group textarea:focus,
+      .form-group select:focus {
+        border-color: #1a73e8;
+      }
+      .form-group textarea {
+        resize: vertical;
+        min-height: 80px;
+      }
+
+      .modal-btns {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 18px;
+      }
+      .btn-cancel {
+        padding: 9px 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background: white;
+        font-family: "Poppins", sans-serif;
+        font-size: 0.85rem;
+        cursor: pointer;
+      }
+      .btn-cancel:hover {
+        background: #f5f5f5;
+      }
+
+      .empty {
+        text-align: center;
+        padding: 60px 20px;
+        color: #aaa;
+        font-size: 0.9rem;
+      }
+      .empty div {
+        font-size: 2rem;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>📋 Notice Board</h1>
+      <span id="dateDisplay"></span>
+    </header>
+
+    <div class="container">
+      <div class="top-bar">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="🔍 Search notices..."
+          oninput="render()"
+        />
+        <select id="sortSelect" onchange="render()">
+          <option value="newest">Newest First</option>
+          <option value="oldest">Oldest First</option>
+        </select>
+        <button class="btn-add" onclick="openModal()">+ Add Notice</button>
+      </div>
+
+      <div class="tabs">
+        <div class="tab active" onclick="setTab(this, 'all')">All</div>
+        <div class="tab" onclick="setTab(this, 'general')">General</div>
+        <div class="tab" onclick="setTab(this, 'exam')">Exam</div>
+        <div class="tab" onclick="setTab(this, 'event')">Event</div>
+        <div class="tab" onclick="setTab(this, 'holiday')">Holiday</div>
+        <div class="tab" onclick="setTab(this, 'fee')">Fee</div>
+      </div>
+
+      <div class="notice-list" id="noticeList"></div>
+    </div>
+
+    <!-- Modal -->
+    <div class="overlay" id="overlay" onclick="handleOverlay(event)">
+      <div class="modal">
+        <h2>📌 Post New Notice</h2>
+        <div class="form-group">
+          <label>Title</label>
+          <input type="text" id="fTitle" placeholder="Notice title..." />
+        </div>
+        <div class="form-group">
+          <label>Category</label>
+          <select id="fCategory">
+            <option value="general">General</option>
+            <option value="exam">Exam</option>
+            <option value="event">Event</option>
+            <option value="holiday">Holiday</option>
+            <option value="fee">Fee</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea
+            id="fBody"
+            placeholder="Write the notice details here..."
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <label>Posted By</label>
+          <input
+            type="text"
+            id="fAuthor"
+            placeholder="e.g. Principal, HOD, Admin..."
+          />
+        </div>
+        <div class="modal-btns">
+          <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+          <button class="btn-add" onclick="addNotice()">Post Notice</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let activeTab = "all";
+
+      let notices = [
+        {
+          id: 1,
+          title: "Mid-Term Examination Schedule 2024",
+          category: "exam",
+          body: "Mid-term exams will be held from 15th to 22nd November. Timetable has been shared with class teachers. Students must carry their hall tickets.",
+          author: "Exam Department",
+          date: "2024-11-10",
+        },
+        {
+          id: 2,
+          title: "Annual Sports Day — 5th December",
+          category: "event",
+          body: "Annual Sports Day will be celebrated on 5th December at the college ground. All students are encouraged to participate. Registration open till 28th November.",
+          author: "Sports Committee",
+          date: "2024-11-09",
+        },
+        {
+          id: 3,
+          title: "Diwali Holiday Notice",
+          category: "holiday",
+          body: "The institute will remain closed from 1st to 5th November on account of Diwali. Regular classes will resume on 6th November.",
+          author: "Principal Office",
+          date: "2024-10-28",
+        },
+        {
+          id: 4,
+          title: "Last Date for Fee Payment — Semester 2",
+          category: "fee",
+          body: "Students are reminded that the last date for Semester 2 fee payment is 20th November 2024. Late fee of ₹500 will be charged after the due date.",
+          author: "Accounts Department",
+          date: "2024-11-05",
+        },
+        {
+          id: 5,
+          title: "Library Timings Updated",
+          category: "general",
+          body: "From 1st December, the library will be open from 8:00 AM to 7:00 PM on weekdays and 9:00 AM to 2:00 PM on Saturdays.",
+          author: "Librarian",
+          date: "2024-11-08",
+        },
+      ];
+
+      let nextId = 6;
+
+      function setTab(el, tab) {
+        document
+          .querySelectorAll(".tab")
+          .forEach((t) => t.classList.remove("active"));
+        el.classList.add("active");
+        activeTab = tab;
+        render();
+      }
+
+      function render() {
+        const search = document
+          .getElementById("searchInput")
+          .value.toLowerCase();
+        const sort = document.getElementById("sortSelect").value;
+
+        let list = [...notices];
+
+        if (activeTab !== "all")
+          list = list.filter((n) => n.category === activeTab);
+        if (search)
+          list = list.filter(
+            (n) =>
+              n.title.toLowerCase().includes(search) ||
+              n.body.toLowerCase().includes(search),
+          );
+
+        list.sort((a, b) =>
+          sort === "newest"
+            ? new Date(b.date) - new Date(a.date)
+            : new Date(a.date) - new Date(b.date),
+        );
+
+        const container = document.getElementById("noticeList");
+
+        if (list.length === 0) {
+          container.innerHTML = `<div class="empty"><div>📭</div>No notices found.</div>`;
+          return;
+        }
+
+        container.innerHTML = list
+          .map(
+            (n) => `
+      <div class="notice-card ${n.category}">
+        <div class="card-top">
+          <div class="notice-title">${n.title}</div>
+          <span class="badge ${n.category}">${cap(n.category)}</span>
+        </div>
+        <div class="notice-body">${n.body}</div>
+        <div class="card-footer">
+          <span>👤 ${n.author} &nbsp;·&nbsp; 📅 ${formatDate(n.date)}</span>
+          <button class="delete-btn" onclick="deleteNotice(${n.id})" title="Delete">🗑</button>
+        </div>
+      </div>
+    `,
+          )
+          .join("");
+      }
+
+      function deleteNotice(id) {
+        if (confirm("Delete this notice?")) {
+          notices = notices.filter((n) => n.id !== id);
+          render();
+        }
+      }
+
+      function openModal() {
+        document.getElementById("overlay").classList.add("open");
+      }
+      function closeModal() {
+        document.getElementById("overlay").classList.remove("open");
+        document.getElementById("fTitle").value = "";
+        document.getElementById("fBody").value = "";
+        document.getElementById("fAuthor").value = "";
+        document.getElementById("fCategory").value = "general";
+      }
+      function handleOverlay(e) {
+        if (e.target === e.currentTarget) closeModal();
+      }
+
+      function addNotice() {
+        const title = document.getElementById("fTitle").value.trim();
+        const body = document.getElementById("fBody").value.trim();
+        const author =
+          document.getElementById("fAuthor").value.trim() || "Admin";
+        const cat = document.getElementById("fCategory").value;
+
+        if (!title || !body) {
+          alert("Please fill in Title and Message.");
+          return;
+        }
+
+        notices.unshift({
+          id: nextId++,
+          title,
+          category: cat,
+          body,
+          author,
+          date: today(),
+        });
+        closeModal();
+        render();
+      }
+
+      function cap(s) {
+        return s.charAt(0).toUpperCase() + s.slice(1);
+      }
+      function today() {
+        return new Date().toISOString().split("T")[0];
+      }
+      function formatDate(d) {
+        return new Date(d).toLocaleDateString("en-IN", {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+        });
+      }
+
+      // Header date
+      document.getElementById("dateDisplay").textContent =
+        new Date().toLocaleDateString("en-IN", {
+          weekday: "long",
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        });
+
+      render();
+    </script>
+  </body>
+</html>
